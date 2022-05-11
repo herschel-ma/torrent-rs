@@ -1,0 +1,12 @@
+[package]
+edition = "2021"
+name = "torrent-rs"
+version = "0.1.0"
+
+[dependencies]
+sha-1 = "0.9.6"
+tokio-test = "*"
+
+[dependencies.tokio]
+features = ["rt", "rt-multi-thread", "net", "fs", "io-util", "sync", "time", "macros"]
+version = "1.6.1"
