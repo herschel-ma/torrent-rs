@@ -23,6 +23,7 @@ impl Client {
         let tree = parse(&mut copy);
         let dict = tree[0].get_dict();
         let info = dict.get("info".as_bytes()).unwrap().get_dict();
+        // piece length: https://wiki.theory.org/BitTorrentSpecification#Metadata_Piece_Length
         let piece_len = info.get("piece length".as_bytes()).unwrap().get_integer();
         let num_pieces = info.get("pieces".as_bytes()).unwrap().get_string().len() / 20;
         let hashes = info.get("pieces".as_bytes()).unwrap().get_string();

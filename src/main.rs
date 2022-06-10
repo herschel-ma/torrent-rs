@@ -1,8 +1,10 @@
 use std::error::Error;
 
 mod bencode;
+mod field;
 mod file;
 mod hash;
+mod tcp_bt;
 mod torrent;
 mod tracker;
 
@@ -20,15 +22,16 @@ async fn main() -> Result<(), Box<dyn Error>> {
     let bytes: Vec<u8> = tokio::fs::read(arg).await?;
 
     // create torrent object to parse torrent file
-    let client = torrent::Client::new(&bytes);
-    // Todo: implment start methods
-    // client.start().await?;
+    let client = torrent::Client::new(&bytes).await;
+    // download torrent
+    client.start().await;
     Ok(())
 }
 
 #[cfg(test)]
 mod client_test {
     #[test]
+    #[ignore]
     fn test_read_torrent_file() {
         use super::*;
         use tokio_test;
@@ -38,5 +41,15 @@ mod client_test {
             let client = torrent::Client::new(&content_bytes).await;
             dbg!(client);
         })
+    }
+
+    #[test]
+    #[ignore]
+    fn test_print_0x_to_decimal() {
+        let hex_str = "0x4000";
+        let dec = 16384;
+        assert_eq!(format!("{:#x}", dec), hex_str);
+        let mut msg = vec![1, 2, 3];
+        assert_eq!(msg.drain(0..2).collect::<Vec<_>>(), &[1, 2]);
     }
 }

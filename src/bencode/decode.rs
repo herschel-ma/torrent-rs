@@ -30,8 +30,8 @@ fn parse_string(str: &mut Vec<u8>) -> Vec<u8> {
     }
     str.drain(0..int_len);
 
-    let mut len = int_string.parse::<usize>().unwrap();
-    let mut string = str[..len].to_vec();
+    let len = int_string.parse::<usize>().unwrap();
+    let string = str[..len].to_vec();
     let mut clone = str[len..].to_vec();
     str.clear();
     str.append(&mut clone);
